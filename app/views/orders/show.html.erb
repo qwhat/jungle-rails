@@ -7,6 +7,62 @@
   <div class="order-summary jumbotron">
     <h4>Thank you for your order!</h4>
   </div>
+  <div class="panel panel-default items">
+    <table class="table table-bordered">
+      <% amounts = [] %>
+      <thead>
+        <tr>
+          <th colspan="2">Product</th>
+          <th>Unit Price</th>
+          <th>Quantity</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%# <% @products.where("#{@line_item[:order_id]} = #{@order.id}").each do |item| %>
+        <% @order.line_items.each do |item| %>
+          <% @products.where("id = #{item.product_id}").each do |ordered| %>
+          <% amounts.push(ordered.price * item.quantity) %>
+          <tr>
+            <td>
+              <%= image_tag ordered.image.tiny %>
+            </td>
+            <td>
+              <h4><%= ordered.name %></h4>
+              <br>
+              <p><%= ordered.description %></p>
+            </td>
+            <td>
+              <%= ordered.price %>
+            </td>
+            <td>
+              <%= item.quantity.to_i %>
+            </td>
+            <td>
+              <%= ordered.price * item.quantity %>
+            </td>
+          </tr>
+          <% end %>
+          <%# <%= render 'item', product: item[:product], quantity: item[:quantity].to_i %>
+        <% end %>
+      </tbody>
+      <tfoot>
+        <tr>
+          <th colspan="4">
+            TOTAL:
+          </th>
+          <th>
+            <% total = 0 %>
+            <% amounts.each do |amount| %>
+              <% total += amount %>
+            <% end %>
+
+          <%= total %>
+          </th>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
 
   <%= link_to "Continue Shopping", root_path, class: 'btn btn-lg btn-primary' %>
 
