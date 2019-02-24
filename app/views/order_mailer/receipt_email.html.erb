@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html' charset='utf-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Your order has been placed!</h1>
+    <h2>
+      Your order ID is <%= @order.id %>
+    </h2>
+    <ul>
+      <% @order.line_items.each do |item| %>
+        <% @products.where("id = #{item.product_id}").each do |ordered| %>
+          <%= "#{ordered.name} x #{item.quantity.to_i}" %>
+        <% end %>
+      <% end %>
+    </ul>
+    <p>
+      Your total is:<%= @order.total_cents / 100.0 %>
+    </p>
+    <p>
+      to see more information about your order, please visit: <%= @url %>.
+    </p>
+  </body>
+</html>
