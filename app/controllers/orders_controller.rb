@@ -55,6 +55,9 @@ class OrdersController < ApplicationController
       )
     end
     order.save!
+
+    OrderMailer.receipt_email(current_user, order, Product.all).deliver
+
     order
   end
 
