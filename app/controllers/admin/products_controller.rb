@@ -1,5 +1,5 @@
 class Admin::ProductsController < ApplicationController
-
+  #basic http authentication with our .env file
   http_basic_authenticate_with name: ENV["ADMIN_USERNAME"], password: ENV["ADMIN_PASSWORD"]
 
   def index
@@ -11,6 +11,7 @@ class Admin::ProductsController < ApplicationController
   end
 
   def create
+    #lets admin add products to the list
     @product = Product.new(product_params)
 
     if @product.save
@@ -19,7 +20,7 @@ class Admin::ProductsController < ApplicationController
       render :new
     end
   end
-
+  #lets admin remove products from the list
   def destroy
     @product = Product.find params[:id]
     @product.destroy

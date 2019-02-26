@@ -2,6 +2,7 @@
     <header class="page-header">
       <h1>My Cart</h1>
     </header>
+    <!-- shows you your current cart if available -->
     <% if enhanced_cart.length == 0 %>
       <h2>Your cart seems to be empty</h2>
       <a href="/">Return to Homepage</a>
@@ -37,6 +38,7 @@
       <div class="row">
         <div class="col-xs-12">
           <%= form_tag orders_path do %>
+            <!-- only lets you checkout if you're logged in -->
             <%if !current_user %>
               <h3>You must be <a href="http://0.0.0.0:3000/login">logged in</a> to Check Out.</h3>
             <% else %>

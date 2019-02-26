@@ -1,6 +1,6 @@
 class OrderMailer < ApplicationMailer
   default from: 'no-reply@jungle.com'
-
+  #handles the email that is sent to the user when they finish their purchase
   def receipt_email(user, order, products)
     @user = user
     @order = order

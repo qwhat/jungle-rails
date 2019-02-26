@@ -1,3 +1,4 @@
+<!-- html for the body of the Order summary page  -->
 <section class="orders-show">
 
   <header class="page-header">
@@ -7,6 +8,7 @@
   <div class="order-summary jumbotron">
     <h4>Thank you for your order!</h4>
   </div>
+
   <div class="panel panel-default items">
     <table class="table table-bordered">
       <% amounts = [] %>
@@ -18,8 +20,11 @@
           <th>Price</th>
         </tr>
       </thead>
+
       <tbody>
+        <!-- loops for each item in line_items database with the order_id -->
         <% @order.line_items.each do |item| %>
+          <!-- loops through products table to get required information -->
           <% @products.where("id = #{item.product_id}").each do |ordered| %>
           <% amounts.push(ordered.price * item.quantity) %>
           <tr>
@@ -44,12 +49,14 @@
           <% end %>
         <% end %>
       </tbody>
+
       <tfoot>
         <tr>
           <th colspan="4">
             TOTAL:
           </th>
           <th>
+            <!-- loops and sums the price of each item -->
             <% total = 0 %>
             <% amounts.each do |amount| %>
               <% total += amount %>
@@ -61,7 +68,6 @@
       </tfoot>
     </table>
   </div>
-
+  <!-- links to homepage -->
   <%= link_to "Continue Shopping", root_path, class: 'btn btn-lg btn-primary' %>
-
 </section>

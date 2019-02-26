@@ -1,30 +1,39 @@
 Rails.application.routes.draw do
 
+  #home page
   root to: 'products#index'
 
+  #products routes
   resources :products, only: [:index, :show] do
+    #nested resource for reviews for each product
     resources :reviews, only: [:create, :destroy] do
     end
   end
+
   resources :categories, only: [:show]
 
+  #checkout cart routes
   resource :cart, only: [:show] do
     post   :add_item
     post   :remove_item
   end
 
+  #receipt routes
   resources :orders, only: [:create, :show]
 
+  #admin routes
   namespace :admin do
     root to: 'dashboard#show'
     resources :products, except: [:edit, :update, :show]
     resources :categories, except: [:destroy]
   end
 
+  #session routes
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
   get '/logout' => 'sessions#destroy'
 
+  #user creation routes
   get '/signup' => 'users#new'
   post '/users' => 'users#create'
 

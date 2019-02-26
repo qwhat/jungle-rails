@@ -1,5 +1,5 @@
 class Admin::CategoriesController < ApplicationController
-
+  #basic http authentication with our .env file
   http_basic_authenticate_with name: ENV["ADMIN_USERNAME"], password: ENV["ADMIN_PASSWORD"]
 
   def index
@@ -8,6 +8,7 @@ class Admin::CategoriesController < ApplicationController
   end
 
   def create
+    #lets admin add categories to the list
     @category = Category.new(category_name)
     if @category.save
       redirect_to [:admin, :categories], notice: 'Category Created!'

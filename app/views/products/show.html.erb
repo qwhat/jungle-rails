@@ -1,17 +1,14 @@
 <section class="products-show">
-
   <header class="page-header">
     <h1><%= link_to @product.category.name, @product.category %> &raquo; <%= @product.name %></h1>
   </header>
-
   <article class="product-detail">
-
     <div class="row">
 
+      <!-- displays information about the product -->
       <div class="col-sm-4">
         <%= image_tag @product.image.url, class: 'main-img' %>
       </div>
-
       <div class="col-sm-8">
         <dl class="dl-horizontal">
           <dt>Name</dt>
@@ -25,6 +22,8 @@
         </dl>
       </div>
     </div>
+
+    <!-- lets users who are signed in add reviews too a product -->
     <% if current_user %>
       <section class="review">
         <%= form_for [@product, @review] do |form| %>
@@ -42,7 +41,10 @@
     <% else %>
       <h3><a href="/login">Login</a> to place a review</h3>
     <% end %>
+
     <%= yield %>
+
+    <!-- displays reviews for current product, if available -->
     <div class="row">
       <% if @product.reviews.length <= 0 %>
         <div class="col-sm-20">

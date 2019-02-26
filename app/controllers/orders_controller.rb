@@ -1,5 +1,7 @@
 class OrdersController < ApplicationController
 
+  before_filter :authorize
+  #passes these tables to the show erb
   def show
     @order = Order.find(params[:id])
     @products = Product.all
@@ -55,7 +57,7 @@ class OrdersController < ApplicationController
       )
     end
     order.save!
-
+    #sends the receipt email to the users email
     OrderMailer.receipt_email(current_user, order, Product.all).deliver
 
     order

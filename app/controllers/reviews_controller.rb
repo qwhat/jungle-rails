@@ -3,6 +3,7 @@ class ReviewsController < ApplicationController
   before_filter :authorize
 
   def create
+    #handles the creation of new reviews
     @user = current_user
     @product = Product.find_by(id: params[:product_id])
     review = Review.new(review_params)
@@ -15,7 +16,7 @@ class ReviewsController < ApplicationController
       redirect_to @product, notice: 'Review creation failed'
     end
   end
-
+  #handles the deletion of reviews
   def destroy
     @product = Product.find_by(id: params[:product_id])
     @review = Review.find_by(id: params[:id])
