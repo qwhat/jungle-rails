@@ -5,14 +5,19 @@
   </header>
 
   <%= form_for [:admin, @category] do |form|%>
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-    <%= form.submit 'Create Category' %>
+    <div class="form-group">
+      <%= form.label :name %>
+      <%= form.text_field :name, class: 'form-control' %>
+    </div>
+    <%= form.submit 'Create Category', class: 'btn btn-primary' %>
   <% end %>
 
-  <ul>
-  <% @categories.each do |category| %>
-    <li><%= category.name %></li>
-  <% end %>
-  </ul>
+  <div class="row">
+    <div class="col-sm-8">
+      <% @categories.each do |category| %>
+      <div ><%= link_to category.name, category %></div><br/>
+      <% end %>
+    </div>
+  </div>
+
 </section>
