@@ -50,7 +50,7 @@
           <h3><%= "#{review.user.first_name} says:" %></h3>
           <h4><%= "#{review.rating} / 5" %></h4>
           <div><%= review.description %></div><br/>
-          <% if current_user.id == review.user.id %>
+          <% if current_user && current_user.id == review.user.id %>
           <a><%= link_to("Delete", [@product, review], method: :delete) %></a>
           <% end %>
         <% end %>
