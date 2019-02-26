@@ -5,12 +5,19 @@ class UsersController < ApplicationController
 
   def create
     #handles the signup of new users
+    unique = true
+    if User.find_by(params[:email])
+      unique = false
+    end
     @user = User.new(user_params)
-    if @user.save
+
+    if !unique
+      redirect_to '/signup'
+    elsif @user.save
       session[:user_id] = @user.id
       redirect_to '/'
     else
-      redirect_to '/users'
+      redirect_to '/signup'
     end
   end
 
