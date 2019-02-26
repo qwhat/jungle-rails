@@ -44,17 +44,23 @@
     <% end %>
     <%= yield %>
     <div class="row">
-      <div class="col-sm-10">
-        <% sorted = @product.reviews.order(created_at: :desc) %>
-        <% sorted.each do |review| %>
-          <h3><%= "#{review.user.first_name} says:" %></h3>
-          <h4><%= "#{review.rating} / 5" %></h4>
-          <div><%= review.description %></div><br/>
-          <% if current_user && current_user.id == review.user.id %>
-          <a><%= link_to("Delete", [@product, review], method: :delete) %></a>
+      <% if @product.reviews.length <= 0 %>
+        <div class="col-sm-20">
+          <h2>There are no reviews for this Product</h2>
+        </div>
+      <% else %>
+        <div class="col-sm-10">
+          <% sorted = @product.reviews.order(created_at: :desc) %>
+          <% sorted.each do |review| %>
+            <h3><%= "#{review.user.first_name} says:" %></h3>
+            <h4><%= "#{review.rating} / 5" %></h4>
+            <div><%= review.description %></div><br/>
+            <% if current_user && current_user.id == review.user.id %>
+              <a><%= link_to("Delete", [@product, review], method: :delete) %></a>
+            <% end %>
           <% end %>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
     </div>
 
   </article>
