@@ -8,8 +8,7 @@ class SessionsController < ApplicationController
 
   def create
     #compares email to database and compares hashed password, if match, signs you in
-    user = User.find_by_email(params[:email])
-    if user && user.authenticate(params[:password])
+    if user = User.authenticate_with_credentials("#{params[:email]}".strip.downcase, params[:password])
       session[:user_id] = user.id
       redirect_to '/'
     else
